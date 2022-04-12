@@ -1,0 +1,36 @@
+.form {
+  background-color: var(--neautral-white);
+  padding: 2.4rem;
+  display: flex;
+  gap: 1.2rem;
+  border-radius: 8px;
+}
+
+.form img {
+  height: 4.2rem;
+}
+
+.form form {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.form input {
+  width: 100%;
+  padding: 1.2rem 1.2rem 4.8rem;
+  border: none;
+  border: 2px solid var(--neautral-light-gray);
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+}
+
+.form button {
+  background-color: var(--primary-blue);
+  color: var(--neautral-white);
+  padding: 1.2rem 2.4rem;
+  border-radius: 8px;
+  font-family: inherit;
+}

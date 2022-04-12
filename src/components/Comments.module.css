@@ -1,0 +1,105 @@
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  list-style: none;
+}
+
+.comments li {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.comment {
+  display: grid;
+  grid-template-columns: 4.2rem auto;
+  grid-template-rows: auto auto;
+  column-gap: 2.4rem;
+  row-gap: 1rem;
+
+  background-color: var(--neautral-white);
+  padding: 1.2rem 2.4rem 2.4rem;
+  border-radius: 8px;
+}
+
+.comment div:last-child {
+  grid-column: 2;
+}
+
+.buttons {
+  grid-row: 1/-1;
+  background-color: var(--neautral-very-light-gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 9.6rem;
+  border-radius: 8px;
+  color: var(--primary-blue);
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.buttons svg {
+  fill: #c5c6ef;
+}
+
+.comment-info {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.comment-info p {
+  color: var(--neautral-dark-blue);
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.comment-info .user-buttons {
+  display: flex;
+  gap: 2.4rem;
+  margin-left: auto;
+}
+
+.user-buttons button:first-child {
+  color: var(--primary-soft-red);
+}
+
+.comment-info span {
+  background-color: #5357b6;
+  color: var(--neautral-white);
+  font-size: 1.2rem;
+  padding: 2px 4px;
+  border-radius: 2px;
+  margin-left: -4px;
+}
+
+.comment-info .date {
+  font-size: 1.2rem;
+  color: var(--neautral-grayish-blue);
+  font-weight: 400;
+}
+
+.comment-info img {
+  height: 3.2rem;
+}
+
+.comment-info button {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--primary-blue);
+  font-weight: 700;
+}
+
+.comment-info svg {
+  fill: #5357b6;
+}
+
+.comment-content {
+  color: var(--neautral-grayish-blue);
+}
