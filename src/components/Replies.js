@@ -27,15 +27,23 @@ const Replies = (props) => {
     dispatch(commentActions.deleteReply({ id: id, thread: props.thread }));
   };
 
+  const likeReply = (type, thread, id) => {
+    dispatch(commentActions.likeReply({ type, thread, id }));
+  };
+
   const renderedReplies = props.replies.map((reply) => (
     <li key={reply.id}>
       <div className={styles.reply}>
         <div className={styles.buttons}>
-          <button>
+          <button
+            onClick={likeReply.bind(null, "PLUS", props.thread, reply.id)}
+          >
             <IconPlus />
           </button>
           <span>{reply.score}</span>
-          <button>
+          <button
+            onClick={likeReply.bind(null, "MINUS", props.thread, reply.id)}
+          >
             <IconMinus />
           </button>
         </div>

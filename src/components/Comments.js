@@ -29,15 +29,19 @@ const Comments = () => {
     dispatch(commentActions.deleteComment(id));
   };
 
+  const likeCommentHandler = (type, id) => {
+    dispatch(commentActions.likeComment({ type, id }));
+  };
+
   const renderedComments = comments.map((comment) => (
     <li key={comment.id}>
       <div className={styles.comment}>
         <div className={styles.buttons}>
-          <button>
+          <button onClick={likeCommentHandler.bind(null, "PLUS", comment.id)}>
             <IconPlus />
           </button>
           <span>{comment.score}</span>
-          <button>
+          <button onClick={likeCommentHandler.bind(null, "MINUS", comment.id)}>
             <IconMinus />
           </button>
         </div>

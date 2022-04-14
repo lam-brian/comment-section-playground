@@ -39,6 +39,31 @@ const commentSlice = createSlice({
 
       comment.replies = filteredReplies;
     },
+    likeComment(state, action) {
+      const comment = state.comments.find(
+        (comment) => comment.id === action.payload.id
+      );
+
+      if (action.payload.type === "PLUS") {
+        comment.score++;
+      }
+      if (action.payload.type === "MINUS") {
+        if (comment.score === 0) return;
+        comment.score--;
+      }
+    },
+    likeReply(state, action) {
+      const reply = state.comments
+        .find((comment) => comment.user.username === action.payload.thread)
+        .replies.find((reply) => reply.id === action.payload.id);
+
+      if (action.payload.type === "PLUS") {
+        reply.score++;
+      }
+      if (action.payload.type === "MINUS") {
+        reply.score--;
+      }
+    },
   },
 });
 
