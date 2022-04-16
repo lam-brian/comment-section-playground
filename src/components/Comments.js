@@ -37,11 +37,17 @@ const Comments = () => {
     <li key={comment.id}>
       <div className={styles.comment}>
         <div className={styles.buttons}>
-          <button onClick={likeCommentHandler.bind(null, "PLUS", comment.id)}>
+          <button
+            className={comment.liked ? styles.active : ""}
+            onClick={likeCommentHandler.bind(null, "PLUS", comment.id)}
+          >
             <IconPlus />
           </button>
           <span>{comment.score}</span>
-          <button onClick={likeCommentHandler.bind(null, "MINUS", comment.id)}>
+          <button
+            className={comment.disliked ? styles.active : ""}
+            onClick={likeCommentHandler.bind(null, "MINUS", comment.id)}
+          >
             <IconMinus />
           </button>
         </div>

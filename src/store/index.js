@@ -45,11 +45,31 @@ const commentSlice = createSlice({
       );
 
       if (action.payload.type === "PLUS") {
+        if (comment.liked) {
+          comment.score--;
+          comment.liked = false;
+          return;
+        }
+        if (comment.disliked) {
+          comment.score++;
+          comment.disliked = false;
+        }
+
         comment.score++;
+        comment.liked = true;
       }
       if (action.payload.type === "MINUS") {
-        if (comment.score === 0) return;
+        if (comment.disliked) {
+          comment.score++;
+          comment.disliked = false;
+          return;
+        }
+        if (comment.liked) {
+          comment.score--;
+          comment.liked = false;
+        }
         comment.score--;
+        comment.disliked = true;
       }
     },
     likeReply(state, action) {
@@ -58,10 +78,31 @@ const commentSlice = createSlice({
         .replies.find((reply) => reply.id === action.payload.id);
 
       if (action.payload.type === "PLUS") {
+        if (reply.liked) {
+          reply.score--;
+          reply.liked = false;
+          return;
+        }
+        if (reply.disliked) {
+          reply.score++;
+          reply.disliked = false;
+        }
         reply.score++;
+        reply.liked = true;
       }
       if (action.payload.type === "MINUS") {
+        if (reply.disliked) {
+          reply.score++;
+          reply.disliked = false;
+          return;
+        }
+        if (reply.liked) {
+          reply.score--;
+          reply.liked = false;
+        }
+
         reply.score--;
+        reply.disliked = true;
       }
     },
   },

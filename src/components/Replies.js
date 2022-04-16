@@ -36,12 +36,14 @@ const Replies = (props) => {
       <div className={styles.reply}>
         <div className={styles.buttons}>
           <button
+            className={reply.liked ? styles.active : ""}
             onClick={likeReply.bind(null, "PLUS", props.thread, reply.id)}
           >
             <IconPlus />
           </button>
           <span>{reply.score}</span>
           <button
+            className={reply.disliked ? styles.active : ""}
             onClick={likeReply.bind(null, "MINUS", props.thread, reply.id)}
           >
             <IconMinus />

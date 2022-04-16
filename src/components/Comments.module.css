@@ -107,3 +107,7 @@
 .comment-content {
   color: var(--neautral-grayish-blue);
 }
+
+.active svg {
+  fill: #5357b6;
+}
