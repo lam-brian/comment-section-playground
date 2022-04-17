@@ -14,6 +14,7 @@ const Comments = () => {
   const comments = useSelector((state) => state.comment.comments);
   const currentUser = useSelector((state) => state.comment.currentUser);
   const isReplying = useSelector((state) => state.ui.isReplying);
+  const isEditing = useSelector((state) => state.ui.isEditing);
 
   const setReplyHandler = (replyingTo) => {
     dispatch(
@@ -32,6 +33,11 @@ const Comments = () => {
   const likeCommentHandler = (type, id) => {
     dispatch(commentActions.likeComment({ type, id }));
   };
+
+  const editCommentHandler = (id) => {
+    dispatch(uiActions.setIsEditing({ status: true, id }));
+  };
+  console.log(isEditing);
 
   const renderedComments = comments.map((comment) => (
     <li key={comment.id}>
@@ -67,16 +73,22 @@ const Comments = () => {
               <button onClick={deleteCommentHandler.bind(null, comment.id)}>
                 <IconDelete /> Delete
               </button>
-              <button>
+              <button onClick={editCommentHandler.bind(null, comment.id)}>
                 <IconEdit /> Edit
               </button>
             </div>
           )}
         </div>
         <div className={styles["comment-content"]}>
-          <p>{comment.content}</p>
+          {isEditing.id !== comment.id && <p>{comment.content}</p>}
+          {isEditing.id === comment.id && (
+            <form>
+              <input type="text" id="comment" />
+            </form>
+          )}
         </div>
       </div>
+
       {isReplying.status && isReplying.receiver === comment.user.username && (
         <NewComment />
       )}

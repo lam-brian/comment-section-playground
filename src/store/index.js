@@ -110,11 +110,16 @@ const commentSlice = createSlice({
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: { isReplying: { status: false, receiver: "", thread: "" } },
+  initialState: {
+    isReplying: { status: false, receiver: "", thread: "" },
+    isEditing: { status: false, id: "" },
+  },
   reducers: {
     setIsReplying(state, action) {
-      console.log(action.payload);
       state.isReplying = action.payload;
+    },
+    setIsEditing(state, action) {
+      state.isEditing = action.payload;
     },
   },
 });
