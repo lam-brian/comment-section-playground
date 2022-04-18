@@ -8,6 +8,7 @@ import { ReactComponent as IconReply } from "../icons/icon-reply.svg";
 import { ReactComponent as IconDelete } from "../icons/icon-delete.svg";
 import { ReactComponent as IconEdit } from "../icons/icon-edit.svg";
 import { commentActions, uiActions } from "../store";
+import EditForm from "./EditForm";
 
 const Comments = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,6 @@ const Comments = () => {
   const editCommentHandler = (id) => {
     dispatch(uiActions.setIsEditing({ status: true, id }));
   };
-  console.log(isEditing);
 
   const renderedComments = comments.map((comment) => (
     <li key={comment.id}>
@@ -68,24 +68,21 @@ const Comments = () => {
               <IconReply /> Reply
             </button>
           )}
-          {comment.user.username === currentUser.username && (
-            <div className={styles["user-buttons"]}>
-              <button onClick={deleteCommentHandler.bind(null, comment.id)}>
-                <IconDelete /> Delete
-              </button>
-              <button onClick={editCommentHandler.bind(null, comment.id)}>
-                <IconEdit /> Edit
-              </button>
-            </div>
-          )}
+          {comment.user.username === currentUser.username &&
+            isEditing.id !== comment.id && (
+              <div className={styles["user-buttons"]}>
+                <button onClick={deleteCommentHandler.bind(null, comment.id)}>
+                  <IconDelete /> Delete
+                </button>
+                <button onClick={editCommentHandler.bind(null, comment.id)}>
+                  <IconEdit /> Edit
+                </button>
+              </div>
+            )}
         </div>
         <div className={styles["comment-content"]}>
           {isEditing.id !== comment.id && <p>{comment.content}</p>}
-          {isEditing.id === comment.id && (
-            <form>
-              <input type="text" id="comment" />
-            </form>
-          )}
+          {isEditing.id === comment.id && <EditForm comment={comment} />}
         </div>
       </div>
 

@@ -7,11 +7,13 @@ import { ReactComponent as IconDelete } from "../icons/icon-delete.svg";
 import { ReactComponent as IconEdit } from "../icons/icon-edit.svg";
 import { commentActions, uiActions } from "../store";
 import NewComment from "./NewComment";
+import EditForm from "./EditForm";
 
 const Replies = (props) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.comment.currentUser);
   const isReplying = useSelector((state) => state.ui.isReplying);
+  const isEditing = useSelector((state) => state.ui.isEditing);
 
   const setReplyingHandler = (replyingTo) => {
     dispatch(
@@ -21,6 +23,11 @@ const Replies = (props) => {
         thread: props.thread,
       })
     );
+  };
+
+  const setIsEditingHandler = (id) => {
+    console.log(id);
+    dispatch(uiActions.setIsEditing({ id }));
   };
 
   const deleteReplyHandler = (id) => {
@@ -62,21 +69,27 @@ const Replies = (props) => {
               <IconReply /> Reply
             </button>
           )}
-          {reply.user.username === currentUser.username && (
-            <div className={styles["user-buttons"]}>
-              <button onClick={deleteReplyHandler.bind(null, reply.id)}>
-                <IconDelete /> Delete
-              </button>
-              <button>
-                <IconEdit /> Edit
-              </button>
-            </div>
-          )}
+          {reply.user.username === currentUser.username &&
+            isEditing.id !== reply.id && (
+              <div className={styles["user-buttons"]}>
+                <button onClick={deleteReplyHandler.bind(null, reply.id)}>
+                  <IconDelete /> Delete
+                </button>
+                <button onClick={setIsEditingHandler.bind(null, reply.id)}>
+                  <IconEdit /> Edit
+                </button>
+              </div>
+            )}
         </div>
         <div className={styles["reply-content"]}>
-          <p>
-            <span>@{reply.replyingTo}</span> {reply.content}
-          </p>
+          {isEditing.id !== reply.id && (
+            <p>
+              <span>@{reply.replyingTo}</span> {reply.content}
+            </p>
+          )}
+          {isEditing.id === reply.id && (
+            <EditForm comment={reply} thread={props.thread} />
+          )}
         </div>
       </div>
       {isReplying.status && isReplying.receiver === reply.user.username && (

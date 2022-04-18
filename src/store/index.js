@@ -105,6 +105,19 @@ const commentSlice = createSlice({
         reply.disliked = true;
       }
     },
+    editComment(state, action) {
+      const comment = state.comments.find(
+        (comment) => comment.id === action.payload.id
+      );
+
+      comment.content = action.payload.content;
+    },
+    editReply(state, action) {
+      const reply = state.comments
+        .find((comment) => comment.user.username === action.payload.thread)
+        .replies.find((reply) => reply.id === action.payload.id);
+      reply.content = action.payload.content;
+    },
   },
 });
 
@@ -112,7 +125,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     isReplying: { status: false, receiver: "", thread: "" },
-    isEditing: { status: false, id: "" },
+    isEditing: { id: "" },
   },
   reducers: {
     setIsReplying(state, action) {
